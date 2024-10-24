@@ -22,7 +22,7 @@ export default function SongPanel(){
               </div>
               <div className="flex bg-gray-900 flex-grow flex-col overflow-scroll bg-scroll " style={{scrollbarWidth: "none"}}>
                 {Array.from({length: 20}).map((_,index)=>{
-                  return <SongCard id={index} name={`song${index+1}`} image="https://picsum.photos/100/100" artist={`artist${index+1}`} time={`${Math.floor(Math.random() * 100)}min`}/>
+                  return <SongCard key={index} id={index} name={`song${index+1}`} image="https://picsum.photos/100/100" artist={`artist${index+1}`} time={`${Math.floor(Math.random() * 100)}min`}/>
                 })}
               </div>
           </div>
