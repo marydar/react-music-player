@@ -33,8 +33,8 @@ export default function PlaylistPanel(){
               })} */}
               {playlists.map((_,index)=>{
                 return (
-                    <div className="cursor-pointer" onClick={()=>{setSelectedPlaylist(playlists[index])}}>
-                        <PlaylistCard key={index} name={playlists[index].name} image="https://picsum.photos/100/100" length={playlists[index].dll.getSize()}/>
+                    <div key={index} className="cursor-pointer" onClick={()=>{setSelectedPlaylist(playlists[index])}}>
+                        <PlaylistCard name={playlists[index].name} image="https://picsum.photos/100/100" length={playlists[index].dll.getSize()}/>
                     </div>
                 )
               })}

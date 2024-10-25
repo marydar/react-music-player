@@ -60,9 +60,8 @@ export default function SongPanel() {
                 })} */}
         {selectedPlaylist.displayAll().map((song, index) => {
           return (
-            <div className="cursor-pointer" onClick={()=>{setSelectedSong(song);console.log(playFunction);playFunction()}}>
+            <div key={index} className="cursor-pointer" onClick={()=>{setSelectedSong(song);console.log(playFunction);playFunction()}}>
                 <SongCard
-                key={index}
                 id={index}
                 name={song.title}
                 image={song.imgAddress}
