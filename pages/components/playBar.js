@@ -114,7 +114,7 @@ export default function PlayBar() {
       </div>
       <div className="flex w-[30%] justify-end items-center pr-8"> 
         {
-          currentTime && duration ? <div className="flex text-gray-400 text-xl">{formatTime(currentTime)} / {formatTime(duration)}</div> : "loading..."
+          currentTime && duration ? <div className="flex text-gray-400 text-l lato-bold">{formatTime(currentTime)} / {formatTime(duration)}</div> : "loading..."
         }
       </div>
     </div>
