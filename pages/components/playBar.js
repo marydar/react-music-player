@@ -15,6 +15,10 @@ export default function PlayBar() {
   const toggleIsShuffling = useMusicStore((state) => state.toggleIsShuffling);
   const isShuffling = useMusicStore((state) => state.isShuffling);
   const isLooping = useMusicStore((state) => state.isLooping);
+  const setCurrentTime = useMusicStore((state) => state.setCurrentTime);
+  const setDuration = useMusicStore((state) => state.setDuration);
+  const currentTime = useMusicStore((state) => state.currentTime);
+  const duration = useMusicStore((state) => state.duration);
   // const setPlayFunction = useMusicStore((state) => state.setPlayFunction);
   // const play = () => {
   //   audioRef.current.play();
@@ -37,16 +41,36 @@ export default function PlayBar() {
     else{
       pause();
     }
+    // audioRef.current.addEventListener("timeupdate", (e) => {
+    //   setCurrentTime(e.target.currentTime);
+    //   setDuration(e.target.duration);
+    // });
+    
   });
   // play();
   // console.log("out", songIsSelected);
 
   return (
     <div className="bg-gray-950 flex w-full h-[9%] justify-between">
-      <audio src={selectedSong.link} ref={audioRef}></audio>
-      <div className="flex flex-col w-[30%] justify-center pl-8">
-        <div className="flex lato-bold">{selectedSong.title}</div>
-        <div className="flex lato-bold">{selectedPlaylist.name}</div>
+      <audio src={selectedSong.link} ref={audioRef} onTimeUpdate={(e)=>{ setCurrentTime(e.target.currentTime); setDuration(e.target.duration);}} onEnded={()=>{
+        let temp = selectedPlaylist.nextSong(isShuffling, isLooping);
+        if(temp != null){
+          setSelectedSong(temp);
+        }
+        else{
+          alert("playlist is empty")
+        }
+      }
+        
+      }></audio>
+      <div className="flex w-[30%] justify-left pl-8">
+        <div className="flex h-full">
+          <img src={selectedSong.imgAddress} alt="image" className=" w-full rounded-md m-1"></img>
+        </div>
+        <div className="flex flex-col justify-center pl-8">
+          <div className="flex lato-bold">{selectedSong.title}</div>
+          <div className="flex lato-bold text-gray-400">{selectedPlaylist.name}</div>
+        </div>
       </div>
       <div className="flex  justify-center items-center w-[30%]">
         {/* shuffle */}
@@ -54,7 +78,16 @@ export default function PlayBar() {
           <ShuffleButton/>
         </div>
         {/* previous */}
-        <div className="flex mr-2 ml-2" onClick={() => {setSelectedSong(selectedPlaylist.previousSong(isShuffling, isLooping));}}>
+        <div className="flex mr-2 ml-2" onClick={() => {
+          let temp = selectedPlaylist.previousSong(isShuffling, isLooping);
+          if(temp != null){
+            setSelectedSong(temp);
+          }
+          else{
+            alert("playlist is empty")
+          }
+          
+          }}>
           <PreviousButton/>
         </div>
         {/* play */}
@@ -63,7 +96,13 @@ export default function PlayBar() {
         </div>
         {/* next */}
         <div className="flex mr-2 ml-2" onClick={() => {
-          setSelectedSong(selectedPlaylist.nextSong(isShuffling, isLooping));
+          let temp = selectedPlaylist.nextSong(isShuffling, isLooping);
+          if(temp != null){
+            setSelectedSong(temp);
+          }
+          else{
+            alert("playlist is empty")
+          }
           // console.log(selectedPlaylist.nextSong(isShuffling, isLooping));
           }}>
           <NextButton/>
@@ -73,10 +112,20 @@ export default function PlayBar() {
           <LoopButton/>
         </div>
       </div>
-      <div className="flex w-[30%]"> </div>
+      <div className="flex w-[30%] justify-end items-center pr-8"> 
+        {
+          currentTime && duration ? <div className="flex text-gray-400 text-xl">{formatTime(currentTime)} / {formatTime(duration)}</div> : "loading..."
+        }
+      </div>
     </div>
   );
 }
+
+const formatTime = (time) => {
+  const minutes = Math.floor(time / 60);
+  const seconds = Math.floor(time % 60).toString().padStart(2, "0");
+  return `${minutes}:${seconds}`;
+};
 // function setNextSong(){
 //   const setSelectedSong = useMusicStore((state) => state.setSelectedSong);
 //   const isLooping = useMusicStore((state) => state.isLooping);
