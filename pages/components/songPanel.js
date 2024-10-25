@@ -6,11 +6,7 @@ export default function SongPanel() {
   const  selectedSong = useMusicStore((state) => state.selectedSong);
   const  setSelectedSong = useMusicStore((state) => state.setSelectedSong);
   const selectedPlaylist = useMusicStore((state) => state.selectedPlaylist);
-  let playFunction = useMusicStore((state) => state.playFunction);
-//   console.log(playFunction);
-//   useEffect(() => {
-//       playFunction = useMusicStore((state) => state.playFunction);
-//   });
+  const setIsPlaying = useMusicStore((state) => state.setIsPlaying);
   
   return (
     <div className="bg-gray-950 flex flex-grow  h-full flex-col p-2">
@@ -60,7 +56,7 @@ export default function SongPanel() {
                 })} */}
         {selectedPlaylist.displayAll().map((song, index) => {
           return (
-            <div key={index} className="cursor-pointer" onClick={()=>{setSelectedSong(song);console.log(playFunction);playFunction()}}>
+            <div key={index} className="cursor-pointer" onClick={()=>{setSelectedSong(song); setIsPlaying(true);}}>
                 <SongCard
                 id={index}
                 name={song.title}

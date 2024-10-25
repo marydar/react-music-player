@@ -4,6 +4,8 @@ import useMusicStore from "@/lib/store";
 export default function PlaylistPanel(){
     const  selectedPlaylist = useMusicStore((state) => state.selectedPlaylist);
     const  setSelectedPlaylist = useMusicStore((state) => state.setSelectedPlaylist);
+    const setOriginalPlaylist = useMusicStore((state) => state.setOriginalPlaylist);
+    const originalPlaylist = useMusicStore((state) => state.originalPlaylist);
   return(
     <div className="bg-gray-950 flex w-[18rem] h-full flex-col p-2">
             <div className="bg-gray-900 flex w-full justify-between maryam-shadow">
@@ -33,7 +35,7 @@ export default function PlaylistPanel(){
               })} */}
               {playlists.map((_,index)=>{
                 return (
-                    <div key={index} className="cursor-pointer" onClick={()=>{setSelectedPlaylist(playlists[index])}}>
+                    <div key={index} className="cursor-pointer" onClick={()=>{setSelectedPlaylist(playlists[index]); setOriginalPlaylist(playlists[index]) ; console.log("-----", originalPlaylist.name)}}>
                         <PlaylistCard name={playlists[index].name} image="https://picsum.photos/100/100" length={playlists[index].dll.getSize()}/>
                     </div>
                 )
