@@ -2,6 +2,8 @@ import useMusicStore from "@/lib/store";
 import{useRef} from "react";
 import { useEffect } from "react";
 export default function PlayBar() {
+  const setSelectedSong = useMusicStore((state) => state.setSelectedSong);
+
   const selectedSong = useMusicStore((state) => state.selectedSong);
   const selectedPlaylist = useMusicStore((state) => state.selectedPlaylist);
   const audioRef = useRef(null);
@@ -52,7 +54,7 @@ export default function PlayBar() {
           <ShuffleButton/>
         </div>
         {/* previous */}
-        <div className="flex mr-2 ml-2">
+        <div className="flex mr-2 ml-2" onClick={() => {setSelectedSong(selectedPlaylist.previousSong(isShuffling, isLooping));}}>
           <PreviousButton/>
         </div>
         {/* play */}
@@ -60,7 +62,10 @@ export default function PlayBar() {
           {isPlaying ? <PauseButton /> : <PlayButton />}
         </div>
         {/* next */}
-        <div className="flex mr-2 ml-2">
+        <div className="flex mr-2 ml-2" onClick={() => {
+          setSelectedSong(selectedPlaylist.nextSong(isShuffling, isLooping));
+          // console.log(selectedPlaylist.nextSong(isShuffling, isLooping));
+          }}>
           <NextButton/>
         </div>
         {/* loop */}
@@ -72,6 +77,12 @@ export default function PlayBar() {
     </div>
   );
 }
+// function setNextSong(){
+//   const setSelectedSong = useMusicStore((state) => state.setSelectedSong);
+//   const isLooping = useMusicStore((state) => state.isLooping);
+//   const isShuffling = useMusicStore((state) => state.isShuffling);
+//   setSelectedSong(selectedPlaylist.nextSong(isShuffling, isLooping));
+// }
 
 function PauseButton() {
   return  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-12 cursor-pointer hover:text-gray-400 transition-all duration-200">

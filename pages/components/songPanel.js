@@ -2,6 +2,7 @@ import SongCard from "./songCard";
 import { allSongs } from "@/lib/data";
 import useMusicStore from "@/lib/store";
 import { useEffect } from "react";
+import {Playlist} from "@/lib/playlist";
 export default function SongPanel() {
   const  selectedSong = useMusicStore((state) => state.selectedSong);
   const  setSelectedSong = useMusicStore((state) => state.setSelectedSong);
@@ -56,7 +57,7 @@ export default function SongPanel() {
                 })} */}
         {selectedPlaylist.displayAll().map((song, index) => {
           return (
-            <div key={index} className="cursor-pointer" onClick={()=>{setSelectedSong(song); setIsPlaying(true);}}>
+            <div key={index} className="cursor-pointer" onClick={()=>{setSelectedSong(song); setIsPlaying(true); selectedPlaylist.setCurrent(index);}}>
                 <SongCard
                 id={index}
                 name={song.title}
