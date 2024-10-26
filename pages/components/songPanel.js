@@ -18,7 +18,7 @@ export default function SongPanel() {
       <div className="flex bg-gray-900 flex-col maryam-shadow">
         <div className="flex bg-gray-900 justify-start items-center ml-12 mb-2 mt-2 ">
           {/* play top */}
-          <div className="flex text-green-500 ">
+          <div className="flex text-green-500 cursor-pointer" onClick={()=>{setIsPlaying(true); selectedPlaylist.setCurrent(0); setSelectedSong(selectedPlaylist.current.data);}}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -62,9 +62,11 @@ export default function SongPanel() {
         {/* {Array.from({length: 20}).map((_,index)=>{
                   return <SongCard key={index} id={index} name={`song${index+1}`} image="https://picsum.photos/100/100" artist={`artist${index+1}`} time={`${Math.floor(Math.random() * 100)}min`}/>
                 })} */}
+
+                {/* {isShuffling ? "w-6 text-green-500 cursor-pointer hover:text-green-400 transition-all duration-200 maryam-glow" : "w-6 cursor-pointer hover:text-gray-400 transition-all duration-200"} */}
         {selectedPlaylist.displayAll().map((song, index) => {
           return (
-            <div key={index} className="cursor-pointer" onClick={()=>{ setSelectedSong(song); setIsPlaying(true); selectedPlaylist.setCurrent(index);}} >
+            <div key={index} className={`${selectedSong.link === song.link ? "text-green-700" : ""} cursor-pointer`} onClick={()=>{ setSelectedSong(song); setIsPlaying(true); selectedPlaylist.setCurrent(index);}} >
                 <SongCard
                 id={index}
                 name={song.title}

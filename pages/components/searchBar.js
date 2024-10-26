@@ -15,10 +15,10 @@ export default function SearchBar() {
   }
   return (
     <div className="bg-gray-950 flex w-full  h-[6%] justify-between ">
-      <div className="flex">0</div>
+      <div className="flex"> </div>
       {/* searchbar */}
       <div className="flex items-center justify-center w-full">
-        <div className="relative w-full max-w-lg">
+        <div className="relative w-full max-w-lg mt-2">
           <svg
             className="absolute left-3 top-1/2 transform -translate-y-1/2 w-6 h-6 text-gray-400"
             fill="none"
@@ -46,7 +46,7 @@ export default function SearchBar() {
           }
         </div>
       </div>
-      <div className="flex">0</div>
+      <div className="flex"> </div>
     </div>
   );
 }

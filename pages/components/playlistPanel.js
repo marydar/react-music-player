@@ -10,6 +10,9 @@ export default function PlaylistPanel(){
     const originalPlaylist = useMusicStore((state) => state.originalPlaylist);
     const setReload = useMusicStore((state) => state.setReload);
     const reload = useMusicStore((state) => state.reload);
+    const addToList = useMusicStore((state) => state.addToList);
+    const toggleAddToList = useMusicStore((state) => state.toggleAddToList);
+    const songForAddToList = useMusicStore((state) => state.songForAddToList);
     useEffect(()=>{
     },[reload])
   
@@ -18,7 +21,7 @@ export default function PlaylistPanel(){
             <div className="bg-gray-900 flex w-full justify-between maryam-shadow">
               <div className="flex bg-gray-900 h-full p-3">
                 {/* lib icon */}
-                <div className="flex items-center cursor-pointer" onClick={()=>{setSelectedPlaylist(allSongs)}}>
+                <div className="flex items-center cursor-pointer" onClick={()=>{setSelectedPlaylist(allSongs); setOriginalPlaylist(allSongs)}}>
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
                     <path d="M11.584 2.376a.75.75 0 0 1 .832 0l9 6a.75.75 0 1 1-.832 1.248L12 3.901 3.416 9.624a.75.75 0 0 1-.832-1.248l9-6Z" />
                     <path fill-rule="evenodd" d="M20.25 10.332v9.918H21a.75.75 0 0 1 0 1.5H3a.75.75 0 0 1 0-1.5h.75v-9.918a.75.75 0 0 1 .634-.74A49.109 49.109 0 0 1 12 9c2.59 0 5.134.202 7.616.592a.75.75 0 0 1 .634.74Zm-7.5 2.418a.75.75 0 0 0-1.5 0v6.75a.75.75 0 0 0 1.5 0v-6.75Zm3-.75a.75.75 0 0 1 .75.75v6.75a.75.75 0 0 1-1.5 0v-6.75a.75.75 0 0 1 .75-.75ZM9 12.75a.75.75 0 0 0-1.5 0v6.75a.75.75 0 0 0 1.5 0v-6.75Z" clip-rule="evenodd" />
@@ -50,10 +53,24 @@ export default function PlaylistPanel(){
               {/* {Array.from({length: 20}).map((_,index)=>{
                 return <PlaylistCard key={index} name={`playlist${index+1}`} image="https://picsum.photos/100/100" length={Math.floor(Math.random() * 100)}/>
               })} */}
+              {/* `${selectedSong.link === song.link ? "bg-gray-900" : ""} cursor-pointer` */}
               {playlists.map((_,index)=>{
                 return (
-                    <div key={index} className="cursor-pointer" onClick={()=>{setSelectedPlaylist(playlists[index]); setOriginalPlaylist(playlists[index]) }}>
-                        <PlaylistCard name={playlists[index].name} image="https://picsum.photos/100/100" length={playlists[index].dll.getSize()}/>
+                    <div key={index} className="cursor-pointer flex justify-between  hover:bg-gray-800" onClick={()=>{setSelectedPlaylist(playlists[index]); setOriginalPlaylist(playlists[index]) }}>
+                        <PlaylistCard name={playlists[index].name} image="https://picsum.photos/100/100" length={playlists[index].dll.getSize()} />
+                        <div className={ `${addToList ? "block" : "hidden"} cursor-pointer mr-2 mt-3 text-gray-400`} onClick={(e)=>{
+                          e.stopPropagation() ;
+                          toggleAddToList();
+                          let flag = playlists[index].addSong(songForAddToList.title, songForAddToList.imgAddress, songForAddToList.link, songForAddToList.lyric, songForAddToList.artistName);
+                          if(!flag){
+                            alert("already in playlist")
+                          }
+                          }}>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+                              <path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25ZM12.75 9a.75.75 0 0 0-1.5 0v2.25H9a.75.75 0 0 0 0 1.5h2.25V15a.75.75 0 0 0 1.5 0v-2.25H15a.75.75 0 0 0 0-1.5h-2.25V9Z" clip-rule="evenodd" />
+                            </svg>
+
+                          </div>
                     </div>
                 )
               })}

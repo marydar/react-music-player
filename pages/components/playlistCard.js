@@ -1,6 +1,6 @@
 const PlaylistCard = ({image, name, length}) =>{
     return (
-      <div className="bg-gray-900 flex m-1 items-center h-16 hover:bg-gray-800">
+      <div className=" flex m-1 items-center h-16">
         <div className="flex h-full p-2">
           <img src={image} alt="image" className="h-full w-full rounded-full overflow-hidden"></img>
         </div>

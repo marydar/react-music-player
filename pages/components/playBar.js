@@ -58,7 +58,7 @@ export default function PlayBar() {
           setSelectedSong(temp);
         }
         else{
-          alert("playlist is empty")
+          alert("no more songs")
         }
       }
         
@@ -84,7 +84,7 @@ export default function PlayBar() {
             setSelectedSong(temp);
           }
           else{
-            alert("playlist is empty")
+            alert("no more songs")
           }
           
           }}>
@@ -101,7 +101,7 @@ export default function PlayBar() {
             setSelectedSong(temp);
           }
           else{
-            alert("playlist is empty")
+            alert("no more songs")
           }
           // console.log(selectedPlaylist.nextSong(isShuffling, isLooping));
           }}>
