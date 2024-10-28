@@ -41,12 +41,24 @@ export default function PlayBar() {
     else{
       pause();
     }
+    
+  
+    // const formatTime = (time) => {
+    //   const minutes = Math.floor(time / 60);
+    //   const seconds = Math.floor(time % 60).toString().padStart(2, '0');
+    //   return `${minutes}:${seconds}`;
+    // };
     // audioRef.current.addEventListener("timeupdate", (e) => {
     //   setCurrentTime(e.target.currentTime);
     //   setDuration(e.target.duration);
     // });
     
   });
+  const handleSliderChange = (e) => {
+    const audio = audioRef.current;
+    audio.currentTime = e.target.value;
+    setCurrentTime(e.target.value);
+  };
   // play();
   // console.log("out", songIsSelected);
 
@@ -72,45 +84,66 @@ export default function PlayBar() {
           <div className="flex lato-bold text-gray-400">{selectedPlaylist.name}</div>
         </div>
       </div>
-      <div className="flex  justify-center items-center w-[30%]">
-        {/* shuffle */}
-        <div className="flex mr-2 ml-2" onClick={() => {toggleIsShuffling();}}>
-          <ShuffleButton/>
+      <div className="flex flex-col justify-center items-center w-[30%]">
+        <div className="flex  justify-center items-center">
+          {/* shuffle */}
+          <div className="flex mr-2 ml-2" onClick={() => {toggleIsShuffling();}}>
+            <ShuffleButton/>
+          </div>
+          {/* previous */}
+          <div className="flex mr-2 ml-2" onClick={() => {
+            let temp = selectedPlaylist.previousSong(isShuffling, isLooping);
+            if(temp != null){
+              setSelectedSong(temp);
+            }
+            else{
+              alert("no more songs")
+            }
+            
+            }}>
+            <PreviousButton/>
+          </div>
+          {/* play */}
+          <div className="flex mr-2 ml-2 cursor-pointer" onClick={() => {toggleIsPlaying();}}>
+            {isPlaying ? <PauseButton /> : <PlayButton />}
+          </div>
+          {/* next */}
+          <div className="flex mr-2 ml-2" onClick={() => {
+            let temp = selectedPlaylist.nextSong(isShuffling, isLooping);
+            if(temp != null){
+              setSelectedSong(temp);
+            }
+            else{
+              alert("no more songs")
+            }
+            // console.log(selectedPlaylist.nextSong(isShuffling, isLooping));
+            }}>
+            <NextButton/>
+          </div>
+          {/* loop */}
+          <div className="flex mr-2 ml-2" onClick={() => {toggleIsLooping();}}>
+            <LoopButton/>
+          </div>
         </div>
-        {/* previous */}
-        <div className="flex mr-2 ml-2" onClick={() => {
-          let temp = selectedPlaylist.previousSong(isShuffling, isLooping);
-          if(temp != null){
-            setSelectedSong(temp);
-          }
-          else{
-            alert("no more songs")
-          }
-          
-          }}>
-          <PreviousButton/>
+        <div className="flex-grow flex justify-between  items-center w-full">
+          <div className="flex text-sm text-gray-400 m-1">
+            <span>{formatTime(currentTime)}</span>
+            {/* <span>{formatTime(duration)}</span> */}
+          </div>
+          <input
+            type="range"
+            min="0"
+            max={duration}
+            value={currentTime}
+            onChange={handleSliderChange}
+            className="w-full appearance-none bg-gray-900 h-2 rounded-full cursor-pointer music-slider"
+          />
+          <div className="flex text-sm text-gray-400 m-1">
+            {/* <span>{formatTime(currentTime)}</span> */}
+            <span>{formatTime(duration)}</span>
+          </div>
         </div>
-        {/* play */}
-        <div className="flex mr-2 ml-2 cursor-pointer" onClick={() => {toggleIsPlaying();}}>
-          {isPlaying ? <PauseButton /> : <PlayButton />}
-        </div>
-        {/* next */}
-        <div className="flex mr-2 ml-2" onClick={() => {
-          let temp = selectedPlaylist.nextSong(isShuffling, isLooping);
-          if(temp != null){
-            setSelectedSong(temp);
-          }
-          else{
-            alert("no more songs")
-          }
-          // console.log(selectedPlaylist.nextSong(isShuffling, isLooping));
-          }}>
-          <NextButton/>
-        </div>
-        {/* loop */}
-        <div className="flex mr-2 ml-2" onClick={() => {toggleIsLooping();}}>
-          <LoopButton/>
-        </div>
+        
       </div>
       <div className="flex w-[30%] justify-end items-center pr-8"> 
         {
