@@ -24,7 +24,7 @@ export default function PlaylistPanel() {
   useEffect(() => {}, [reload]);
 
   return (
-    <div className="bg-gray-950 flex w-[18rem] h-full flex-col p-2">
+    <div className="bg-gray-950 flex w-[18rem] h-full flex-col py-2 pr-1 pl-2">
       <div className="bg-gray-900 flex w-full justify-between maryam-shadow">
         <div className="flex bg-gray-900 h-full p-3">
           {/* lib icon */}

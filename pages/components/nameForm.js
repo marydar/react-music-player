@@ -34,13 +34,13 @@ export default function PlaylistNameForm() {
       );
     };
     return (
-      <div className="flex flex-col items-center justify-center bg-gray-950 h-[100%] rounded-3xl">
-        <h1 className="color-white text-center text-3xl font-bold p-3">
+      <div className="flex flex-col items-center justify-center  bg-gray-950 h-[100%] rounded-3xl">
+        <h1 className="color-white text-center text-3xl font-bold p-2">
           Create Playlist
         </h1>
         <form
           onSubmit={handleCreatePlaylist}
-          className="flex flex-col items-center justify-center gap-10"
+          className="flex flex-col items-center justify-center gap-3"
         >
           <input
             ref={inputRef}
@@ -49,7 +49,7 @@ export default function PlaylistNameForm() {
             placeholder="Enter playlist name"
           />
           <button
-            className="px-5 py-3 text-white bg-gray-700 rounded-md cursor-pointer text-base hover:bg-gray-900 transition-colors duration-300"
+            className="px-20 py-3 text-white bg-gray-700 rounded-md cursor-pointer text-base hover:bg-gray-900 transition-colors duration-300"
             type="submit"
           >
             Create
