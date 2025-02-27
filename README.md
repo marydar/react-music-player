@@ -43,6 +43,9 @@ Below is a screenshot of the music player interface:
 
 ![Music Player Screenshot](screenshots/page.png)
 
+
+![flex layout](screenshots/demo.png)
+
 ---
 ## Author
 [MaryamDar](https://github.com/marydar)
